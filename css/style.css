@@ -1,23 +1,27 @@
 /* ==========================================================================
-   GLOBAL CONFIGURATION & CORE RESETS
+   0. GLOBAL CONFIGURATION, CORE RESETS & FONTS
    ========================================================================== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Inter", sans-serif;
 }
 
-/* ==========================================================================
-   1. PERFORMANCE & SMOOTH SCROLL ACCELERATION
-   ========================================================================== */
 html {
-    scroll-behavior: auto !important; 
+    scroll-behavior: auto !important; /* Managed by your custom smooth scroll script */
 }
 
-/* Force Graphics Card (GPU) acceleration on your main content layers */
+body {
+    background-color: #050b14; /* Default dark mode space color backup */
+    padding-top: 84px;        /* Prevents topbar from cutting off hero text */
+}
+
+/* Hardware GPU acceleration rules across active layout rows */
 .hero-section, 
 .hub-section, 
-.projects-section {
+.projects-section,
+.contact-section {
     position: relative;
     z-index: 5;
     will-change: transform;
@@ -25,13 +29,9 @@ html {
     backface-visibility: hidden;
 }
 
-/* Optimize WebGL frame processing space */
-.lightfall-bg-container {
-    will-change: auto !important;
-}
 
 /* ==========================================================================
-   2. LIGHTFALL WEBGL CANVAS LAYER CONFIGURATION
+   1. LIGHTFALL WEBGL BACKGROUND CANVAS
    ========================================================================== */
 .lightfall-bg-container {
     position: fixed;
@@ -40,8 +40,9 @@ html {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    z-index: -1; /* Keeps the animated shader behind all your cards */
+    z-index: -1; 
     background-color: #050b14; 
+    will-change: auto !important;
 }
 
 #lightfall-canvas {
@@ -52,26 +53,9 @@ html {
 }
 
 
-
-
-*{
-    font-family: "Inter", sans-serif;
-}
-
-body {
-  margin: 0;
-  padding-top:84px;
- /* background: url("../images/bg1.jpg") no-repeat center center #1c1d1f;
-  background-size: cover;
-  background-attachment: fixed; */
-}
-
-
 /* ==========================================================================
-    TopBar SECTION
+   2. STICKY GLASSMORPHISM TOPBAR NAVIGATION
    ========================================================================== */
-   
-   
 .topbar {
     position: fixed;
     top: 20px;
@@ -88,18 +72,15 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     z-index: 100; 
     
-    /* Preps hardware hooks for 3D cursor tilting layers */
     transform-style: preserve-3d;
     perspective: 1000px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 .topbar:hover {
     border-color: rgba(16, 185, 129, 0.3);
     box-shadow: 0 10px 35px rgba(16, 185, 129, 0.15);
 }
-
 
 .topbar .wrapper {
     width: 100%;
@@ -110,7 +91,6 @@ body {
     align-items: center;
 }
 
-
 .tl, .tr {
     display: flex;
     align-items: center;
@@ -120,10 +100,7 @@ body {
     list-style: none;
     display: flex;
     gap: 24px; 
-    margin: 0;
-    padding: 0;
 }
-
 
 .tl ul li a, 
 .tr ul li a.nav-link {
@@ -139,24 +116,21 @@ body {
     transition: color 0.3s ease;
 }
 
-
 .tl ul li a i, 
 .tr ul li a.nav-link i {
     font-size: 14px;
     transition: transform 0.3s ease;
 }
 
-/* Hover State Colors */
 .tl ul li a:hover, 
 .tr ul li a.nav-link:hover {
-    color: #10B981; /* Premium Emerald Shift */
+    color: #10B981; /* Emerald green theme tint accent */
 }
 
 .tl ul li a:hover i, 
 .tr ul li a.nav-link:hover i {
-    transform: translateY(-1px) scale(1.05); /* Slight interactive nudge */
+    transform: translateY(-1px) scale(1.05);
 }
-
 
 .tr ul li a.nav-link::after {
     content: '';
@@ -173,51 +147,14 @@ body {
     width: 100%;
 }
 
-/* ==========================================================================
-   RESPONSIVE DESIGN ADAPTATIONS (MOBILE BREAK POINTS)
-   ========================================================================== */
-@media (max-width: 992px) {
-    .topbar {
-        top: 10px;
-        height: auto;
-        padding: 12px 0;
-        border-radius: 20px;
-        transform: translateX(-50%) !important; /* Locks centering grid override */
-    }
-    
-    .topbar .wrapper {
-        flex-direction: column;
-        gap: 12px;
-        padding: 0 15px;
-    }
-    
-    /* Safely hide the email address block to save mobile viewport display space */
-    .tl {
-        display: none; 
-    }
-    
-    .tr ul {
-        gap: 16px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .tr ul li a.nav-link {
-        font-size: 13px;
-    }
-}
 
 /* ==========================================================================
-   HERO CONTAINER LAYOUT
+   3. HERO MODULE SECTION (Intro Content Block)
    ========================================================================== */
-   
-   
 .hero-section {
-    min-height: calc(100vh - 84px); /* Fills the viewport perfectly below the topbar */
+    min-height: calc(100vh - 84px);
     display: flex;
     align-items: center;
-    position: relative !important;
-    z-index: 5 !important;
 }
 
 .hero-wrapper {
@@ -230,10 +167,7 @@ body {
     gap: 60px;
 }
 
-/* ==========================================================================
-   LEFT SIDE: DYNAMIC ORGANIC OVAL PHOTO
-   ========================================================================== */
-
+/* Organic 3D Floating Avatar Engine Frame */
 .hero-image-container {
     width: 45%;
     display: flex;
@@ -241,28 +175,21 @@ body {
     align-items: center;
 }
 
-/* NEW: The 3D Perspective Canvas */
 .tilt-wrapper {
     transform-style: preserve-3d;
     perspective: 1000px;
-    /* JS controls the rotation transition here */
     transition: transform 0.1s ease-out; 
 }
 
-/* The interactive, fluid organic oval frame (Base Layer) */
 .image-border-glow {
     position: relative;
     width: 380px; 
     height: 460px;
     padding: 4px;
-    
     border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%;
     background: linear-gradient(135deg, #10B981, rgba(16, 185, 129, 0.2));
     box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
-    
-    /* Crucial: Tells the glow border to allow elements inside to pop out */
     transform-style: preserve-3d; 
-    
     animation: dynamicPillFloat 6s ease-in-out infinite alternate;
     transition: all 0.4s ease;
 }
@@ -272,7 +199,6 @@ body {
     box-shadow: 0 30px 60px -10px rgba(16, 185, 129, 0.4);
 }
 
-/* The profile photo (Extruded Layer) */
 .hero-profile-pic {
     width: 100%;
     height: 100%;
@@ -280,45 +206,22 @@ body {
     object-position: top center;
     border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%;
     display: block;
-    
-    /* NEW: Extrudes your face 40 pixels out of the screen! */
-    transform: translateZ(40px);
-    /* Adds a drop shadow behind your floating photo onto the glowing backplate */
+    transform: translateZ(40px); /* Extrudes profile photo image forward */
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); 
-    
     transition: all 0.4s ease;
 }
 
 .image-border-glow:hover .hero-profile-pic {
     border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
-    transform: translateZ(60px); /* Pops out even further on hover */
+    transform: translateZ(60px);
 }
 
-/* Levitating keyframes animation engine */
 @keyframes dynamicPillFloat {
     0% { transform: translateY(0px); }
     100% { transform: translateY(-15px); }
 }
 
-/* Mobile check */
-@media (max-width: 992px) {
-    .image-border-glow {
-        width: 280px;
-        height: 340px;
-        animation: none;
-    }
-    .tilt-wrapper {
-        transform: none !important; /* Disables JS tilt on mobile to save battery */
-    }
-    .hero-profile-pic {
-        transform: translateZ(0); /* Flattens back to 2D on phones */
-    }
-}
-
-/* ==========================================================================
-   RIGHT SIDE: TEXT CONTENT & TYPOGRAPHY
-   ========================================================================== */
-   
+/* Typography elements info block */
 .hero-content {
     width: 55%;
     display: flex;
@@ -347,7 +250,7 @@ body {
 }
 
 .hero-content h1 .highlight {
-    color: #10B981; /* Emerald pop accent */
+    color: #10B981;
 }
 
 .hero-content h2 {
@@ -365,23 +268,15 @@ body {
     max-width: 560px;
 }
 
-
-/* ==========================================================================
-   INTERACTIVE BUTTON ACTIONS
-   ========================================================================== */
-   
-   
 .hero-actions {
     display: flex;
     gap: 16px;
 }
 
-/* ==========================================================================
-   HERO ACTIONS: DYNAMIC DOWNLOAD BUTTON STYLE
-   ========================================================================== */
+/* Action Buttons Styles */
 .btn-cv-download {
-    background: #10B981; /* Emerald theme background */
-    color: #050b14;      /* Deep primary space dark color text */
+    background: #10B981;
+    color: #050b14; 
     text-decoration: none;
     padding: 14px 28px;
     font-size: 14px;
@@ -406,8 +301,9 @@ body {
 }
 
 .btn-cv-download:hover i {
-    transform: translateY(2px); /* Makes the arrow bounce downwards on hover */
+    transform: translateY(2px);
 }
+
 .btn-secondary {
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
@@ -415,8 +311,8 @@ body {
     border-radius: 25px;
     font-weight: 600;
     font-size: 15px;
+    text-decoration: none;
     transition: all 0.2s ease;
-	text-decoration:none;
 }
 
 .btn-secondary:hover {
@@ -425,98 +321,48 @@ body {
     transform: translateY(-2px);
 }
 
+
 /* ==========================================================================
-   FLUID RESPONSIVE DESIGN (TABLETS & PHONES)
+   4. PROFILE HUB SUB-SECTION MODULE (Tabs System Core)
    ========================================================================== */
-@media (max-width: 992px) {
-    .hero-wrapper {
-        flex-direction: column;
-        gap: 40px;
-        text-align: center;
-        padding: 40px 0;
-    }
-
-    .hero-image-container, 
-    .hero-content {
-        width: 100%;
-        align-items: center;
-    }
-
-    /* Shrinks shapes cleanly on mobile devices */
-    .image-border-glow {
-        width: 280px;
-        height: 340px;
-        animation: none; /* Stops float processing loops on mobile chips to save battery */
-    }
-
-    .hero-content h1 {
-        font-size: 40px;
-    }
-
-    .hero-content h2 {
-        font-size: 24px;
-    }
-    
-    .hero-content p {
-        margin: 0 0 28px 0;
-    }
-    
-    .hero-actions {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-
-      
-/* ==========================================================================
-    PROFILE HUB STYLING
-   ========================================================================== */
-   
-   
 .hub-section {
     padding: 80px 0;
-    position: relative !important;
-    z-index: 5 !important;
 }
 
 .hub-wrapper {
     width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 900px; 
+    margin: 0 auto;   
+    padding: 0 20px; 
 }
-
 
 .tab-container {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    margin-bottom: 40px;
+    justify-content: center; 
+    gap: 10px;               
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+    margin-bottom: 40px;     
 }
-
 
 .tab-btn {
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5); 
     font-size: 16px;
     font-weight: 600;
     padding: 14px 28px;
-    cursor: pointer;
+    cursor: pointer;         
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; 
 }
 
 .tab-btn:hover { 
-    color: rgba(255, 255, 255, 0.9); 
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .tab-btn.active { 
-    color: #10B981; 
+    color: #10B981;
 }
-
 
 .tab-btn.active::after {
     content: '';
@@ -525,36 +371,33 @@ body {
     left: 0;
     width: 100%;
     height: 2px;
-    background: #10B981;
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    background: #10B981; 
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); 
 }
-
 
 .tab-panel {
     display: none;
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(10px); 
     transition: all 0.4s ease;
 }
 
 .tab-panel.active {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0); 
 }
 
-
+/* Base style layout configurations for general profile information panels */
 .panel-card {
     background: rgba(20, 25, 35, 0.45);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);         
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     padding: 40px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     cursor: pointer;
-    
-    /* Activates 3D spatial coordinate tracking for your vanilla tilt engine */
     transform-style: preserve-3d;
     perspective: 1000px;
     transition: transform 0.1s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -564,7 +407,6 @@ body {
     border-color: rgba(16, 185, 129, 0.25);
     box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
 }
-
 
 .panel-card h3 { 
     font-size: 22px; 
@@ -581,13 +423,71 @@ body {
 }
 
 
-.skills-matrix {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    width: 100%;
+/* ==========================================================================
+   5. SKILLS DISPLAY PORTFOLIO CORE (Modern Glow Pill Clusters)
+   ========================================================================== */
+.skills-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 10px 0;
 }
 
+.skills-group h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.3px;
+}
+
+.skills-group h3 i {
+    color: #10B981;
+    font-size: 14px;
+}
+
+.skills-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.simple-tag {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 20px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: default;
+    transition: all 0.25s ease;
+}
+
+.simple-tag:hover {
+    background: rgba(16, 185, 129, 0.06);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #ffffff;
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.simple-tag i {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+}
+
+.simple-tag:hover i {
+    transform: scale(1.15);
+}
+
+/* Alternate legacy container block structures */
 .stack-box {
     background: rgba(20, 25, 35, 0.45);
     backdrop-filter: blur(16px);
@@ -596,7 +496,6 @@ body {
     border-radius: 24px;
     padding: 35px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    
     transform-style: preserve-3d;
     perspective: 1000px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -606,7 +505,6 @@ body {
     border-color: rgba(16, 185, 129, 0.3);
     box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
 }
-
 
 .stack-header {
     display: flex;
@@ -630,7 +528,6 @@ body {
     font-weight: 700;
     letter-spacing: 0.5px;
 }
-
 
 .pill-cloud {
     display: flex;
@@ -660,9 +557,12 @@ body {
 }
 
 
+/* ==========================================================================
+   6. CERTIFICATIONS BLOCK LAYER (Premium 3-Column Cyan Layout)
+   ========================================================================== */
 .cert-grid-layout {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
     width: 100%;
 }
@@ -672,10 +572,10 @@ body {
     align-items: center;
     gap: 20px;
     padding: 24px;
-    background: rgba(20, 25, 35, 0.45);
+    background: rgba(20, 25, 35, 0.45); 
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06); 
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
     
@@ -685,36 +585,33 @@ body {
 }
 
 .modern-cert-card:hover {
-    border-color: rgba(6, 182, 212, 0.3);
+    border-color: rgba(6, 182, 212, 0.3); /* Glowing Cyan Shift */
     box-shadow: 0 15px 30px rgba(6, 182, 212, 0.1);
 }
-
 
 .cert-icon-wrapper {
     width: 52px;
     height: 52px;
     min-width: 52px;
-    background: rgba(6, 182, 212, 0.08);
+    background: rgba(6, 182, 212, 0.08); 
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translateZ(25px);
     transition: all 0.3s ease;
 }
 
 .cert-icon-wrapper i {
-    color: #06B6D4;
+    color: #06B6D4; 
     font-size: 22px;
     filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.4));
 }
 
-
 .modern-cert-card:hover .cert-icon-wrapper {
     background: #06B6D4;
     border-color: #06B6D4;
-    transform: translateZ(35px) rotate(10deg);
+    transform: rotate(10deg); 
 }
 
 .modern-cert-card:hover .cert-icon-wrapper i {
@@ -722,9 +619,8 @@ body {
     filter: none;
 }
 
-
 .cert-details {
-    transform: translateZ(15px);
+    flex: 1; 
 }
 
 .cert-details h5 {
@@ -733,43 +629,27 @@ body {
     font-weight: 700;
     margin: 0 0 4px 0;
     letter-spacing: 0.3px;
+    line-height: 1.4;
 }
 
 .cert-details .issuer {
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.45); 
     font-size: 13px;
     font-weight: 500;
     display: block;
 }
 
-/* ==========================================================================
-   SECTION 6: RESPONSIVE MEDIA VIEWPORT BREAKS
-   ========================================================================== */
-@media (max-width: 992px) {
-    .skills-matrix, 
-    .cert-grid-layout {
-        grid-template-columns: 1fr; /* Drop grids into a single unified column row on mobile devices */
-        gap: 20px;
-    }
-    
-    .stack-box, 
-    .modern-cert-card {
-        padding: 25px;
-        transform: none !important; /* Disables 3D strain on basic viewport engines */
-    }
+/* THE POWER FIX: Stretches long data elements across all 3 column spaces layoutwise */
+.modern-cert-card.cert-details-large {
+    grid-column: span 3 !important; 
 }
 
 
-
-
 /* ==========================================================================
-   Project SECTION
+   7. INDEPENDENT PRODUCTION PROJECT CARDS ENGINE
    ========================================================================== */
-
 .projects-section {
     padding: 100px 0;
-    position: relative !important;
-    z-index: 5 !important;
 }
 
 .projects-container {
@@ -777,7 +657,6 @@ body {
     max-width: 95%;
     margin: 0 auto;
 }
-
 
 .section-title {
     display: flex;
@@ -794,7 +673,6 @@ body {
     margin-top: 10px;
 }
 
-
 .title-underline {
     width: 60px;
     height: 4px;
@@ -803,7 +681,6 @@ body {
     margin-top: 15px;
     box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
 }
-
 
 .projects-grid {
     display: grid;
@@ -820,18 +697,14 @@ body {
     padding: 45px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     cursor: pointer;
-    
-    /* Connects this card directly to your existing JavaScript 3D tilt engine */
     transform-style: preserve-3d;
     perspective: 1000px;
 }
-
 
 .project-card:hover {
     border-color: rgba(16, 185, 129, 0.25);
     box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
 }
-
 
 .project-icon {
     width: 54px;
@@ -864,7 +737,6 @@ body {
     margin-bottom: 28px;
 }
 
-
 .tech-tags {
     display: flex;
     flex-wrap: wrap;
@@ -882,20 +754,16 @@ body {
     font-weight: 500;
 }
 
-
-/* ==========================================================================
-   PROJECT CARDS: SOURCE CODE INTERACTION BUTTONS
-   ========================================================================== */
 .project-links {
     margin-top: 25px;
-    transform: translateZ(20px); /* Extrudes the button in 3D space for the tilt engine */
+    transform: translateZ(20px);
 }
 
 .link-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(16, 185, 129, 0.08); /* Transparent emerald tint */
+    background: rgba(16, 185, 129, 0.08); 
     border: 1px solid rgba(16, 185, 129, 0.2);
     color: #10B981;
     text-decoration: none;
@@ -906,10 +774,9 @@ body {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Button lights up and shifts up slightly on cursor hover */
 .link-btn:hover {
     background: #10B981;
-    color: #050b14; /* Inverts text color over solid emerald background */
+    color: #050b14;
     box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
     transform: translateY(-2px);
 }
@@ -918,33 +785,12 @@ body {
     font-size: 15px;
 }
 
-/* ==========================================================================
-   MOBILE VIEWPORT MEDIA QUERY RESPONSIVENESS
-   ========================================================================== */
-@media (max-width: 992px) {
-    .projects-grid {
-        grid-template-columns: 1fr; /* Stacks layout columns into a 1-column layout on mobile */
-        gap: 25px;
-    }
-
-    .project-card {
-        padding: 30px;
-        transform: none !important; /* Safely shuts down 3D processing angles on touch screens */
-    }
-
-    .section-title h2 {
-        font-size: 32px;
-    }
-}
-
 
 /* ==========================================================================
-   CONTACT SECTION STYLING
+   8. SECURE CONTACT TRANSMISSION INTAKE MODULE
    ========================================================================== */
 .contact-section {
     padding: 80px 0 100px 0;
-    position: relative;
-    z-index: 5;
 }
 
 .contact-container {
@@ -958,7 +804,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 24px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    
     transform-style: preserve-3d;
     perspective: 1000px;
     will-change: transform;
@@ -972,7 +817,7 @@ body {
 .contact-header {
     text-align: center;
     margin-bottom: 40px;
-    transform: translateZ(30px); /* Extrudes header outward in 3D */
+    transform: translateZ(30px);
 }
 
 .contact-header h2 {
@@ -990,12 +835,11 @@ body {
     margin: 0 auto;
 }
 
-/* Form Structural Core Systems */
 .contact-form {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    transform: translateZ(20px); /* Extrudes form fields slightly under the header */
+    transform: translateZ(20px);
 }
 
 .form-row {
@@ -1038,10 +882,9 @@ body {
     box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
 }
 
-
 .form-submit-btn {
-    background: #10B981; /* Premium Emerald Accent color */
-    color: #050b14;      /* Deep space dark base text color */
+    background: #10B981;
+    color: #050b14; 
     border: none;
     padding: 16px 16px;
     font-size: 15px;
@@ -1055,12 +898,9 @@ body {
     width: auto;
     min-width: 120px;
     box-shadow: 0 5px 15px rgba(16, 185, 129, 0.25);
-    
-    /* Hardware acceleration for smooth dynamic movement layers */
     transform: translateZ(20px); 
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 
 .form-submit-btn:hover {
     background: #0d9668;
@@ -1068,11 +908,9 @@ body {
     box-shadow: 0 8px 22px rgba(16, 185, 129, 0.45);
 }
 
-
 .form-submit-btn:active {
     transform: translateZ(15px) translateY(0);
 }
-
 
 .form-submit-btn i {
     font-size: 14px;
@@ -1083,7 +921,6 @@ body {
     transform: translateX(3px) translateY(-2px); 
 }
 
-
 .form-submit-btn:disabled {
     background: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -1092,7 +929,6 @@ body {
     transform: none !important;
     box-shadow: none !important;
 }
-
 
 @keyframes button-spin {
     from { transform: rotate(0deg); }
@@ -1103,8 +939,9 @@ body {
     animation: button-spin 1s linear infinite;
 }
 
+
 /* ==========================================================================
-   BASELINE FOOTER STYLING
+   9. BASELINE FOOTER ARCHITECTURE
    ========================================================================== */
 .main-footer {
     width: 100%;
@@ -1158,9 +995,97 @@ body {
     box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
 }
 
+
 /* ==========================================================================
-   RESPONSIVE LAYOUT CONSTRAINTS
+   10. UNIVERSAL RESPONSIVE MEDIA VIEWPORT BREAKPOINTS
    ========================================================================== */
+
+/* Tablet & Smaller Desktop Screens */
+@media (max-width: 992px) {
+    /* Topbar Navigation adjustments */
+    .topbar {
+        top: 10px;
+        height: auto;
+        padding: 12px 0;
+        border-radius: 20px;
+        transform: translateX(-50%) !important; 
+    }
+    .topbar .wrapper {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 15px;
+    }
+    .tl {
+        display: none; /* Hide header email string text block to free up space */
+    }
+    .tr ul {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tr ul li a.nav-link {
+        font-size: 13px;
+    }
+
+    /* Hero intro block alignments */
+    .hero-wrapper {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+        padding: 40px 0;
+    }
+    .hero-image-container, 
+    .hero-content {
+        width: 100%;
+        align-items: center;
+    }
+    .image-border-glow {
+        width: 280px;
+        height: 340px;
+        animation: none; /* Freeze floating animation processing loops to preserve mobile battery */
+    }
+    .tilt-wrapper {
+        transform: none !important; 
+    }
+    .hero-profile-pic {
+        transform: translateZ(0); /* Flatten layers to standard 2D viewports */
+    }
+    .hero-content h1 {
+        font-size: 40px;
+    }
+    .hero-content h2 {
+        font-size: 24px;
+    }
+    .hero-content p {
+        margin: 0 0 28px 0;
+    }
+    .hero-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Production Cards Grid Layout Restructures */
+    .skills-matrix, 
+    .projects-grid,
+    .cert-grid-layout {
+        grid-template-columns: 1fr !important; /* Stack columns down safely */
+        gap: 20px;
+    }
+    .stack-box,
+    .project-card,
+    .modern-cert-card {
+        padding: 30px;
+        transform: none !important; /* Remove 3D angle stress constraints from touch surfaces */
+    }
+    .modern-cert-card.cert-details-large {
+        grid-column: span 1 !important; /* Safety grid parameter layout override reset */
+    }
+    .section-title h2 {
+        font-size: 32px;
+    }
+}
+
+/* Mobile Portrait Phone Screens */
 @media (max-width: 768px) {
     .form-row {
         flex-direction: column;
@@ -1174,5 +1099,16 @@ body {
         flex-direction: column;
         gap: 20px;
         text-align: center;
+    }
+}
+
+/* Tiny Smartphone Screens */
+@media (max-width: 576px) {
+    .skills-flex {
+        gap: 8px;
+    }
+    .simple-tag {
+        padding: 8px 14px;
+        font-size: 13px;
     }
 }
