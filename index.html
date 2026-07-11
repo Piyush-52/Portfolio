@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio--</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wdth@0,75..100;1,75..100&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <!-- Fixed: FontAwesome version linked properly -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="lib/animate/animate.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- LIGHTFALL WEBGL SHADER BACKGROUND LAYER -->
+<div class="lightfall-bg-container">
+    <canvas id="lightfall-canvas"></canvas>
+</div>
+
+<!-- TOP NAVIGATION BAR LAYER -->
+<header>
+    <!-- TOP NAVIGATION BAR LAYER -->
+<header>
+    <nav class="topbar" data-tilt>
+        <div class="wrapper">
+            
+            <!-- LEFT SIDE: PRIMARY EMAIL CORE CONTACT -->
+            <div class="tl">
+                <ul>
+                    <li>
+                        <a href="mailto:piyushsingh5457@gmail.com">
+                            <i class="fa-solid fa-envelope"></i> piyushsingh5457@gmail.com
+							<li>
+							<a href="tel:1234567890"><i class="fa-solid fa-phone"></i> +91 7667107416</a></li>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- RIGHT SIDE: DIRECT ANCHOR LINKS (REPLACES OLD SOCIAL ICONS) -->
+            <div class="tr">
+                <ul>
+                    <li><a href="#profile-hub" class="nav-link" data-target-tab="about-tab"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                    <li><a href="#profile-hub" class="nav-link" data-target-tab="skills-tab"><i class="fa-solid fa-layer-group"></i> Skills</a></li>
+                    <li><a href="#profile-hub" class="nav-link" data-target-tab="cert-tab"><i class="fa-solid fa-award"></i> Certificates</a></li>
+                    <li><a href="#projects" class="nav-link"><i class="fa-solid fa-code"></i> Projects</a></li>
+                    <li><a href="#contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+</header>
+
+<!-- 3D HERO HERO INTRODUCTION SECTION -->
+<section class="hero-section wow bounceIn" data-wow-delay="0.5s">
+    <div class="hero-wrapper">
+        <div class="hero-image-container">
+            <div class="tilt-wrapper" data-tilt>
+                <div class="image-border-glow">
+                    <img src="images/my.jpeg" alt="Piyush Kumar" class="hero-profile-pic">
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <span class="badge">AVAILABLE FOR ROLES</span>
+            <h1>Hi, I'm <span class="highlight">Piyush Kumar</span></h1>
+            <h2>Full-Stack & AI Engineer</h2>
+            <p>
+                Computer Science undergraduate specializing in building modern full-stack web applications 
+                integrated with secure real-time protocols and large language models.
+            </p>
+            <div class="hero-actions">
+    <!-- Updated: Removed the #resume hash and linked directly to the physical PDF file -->
+    <a href="./files/Piyush_Kumar_Resume.pdf" download="Piyush_Kumar_Resume.pdf" class="btn-cv-download">
+        <i class="fa-solid fa-arrow-down-to-line"></i> Download CV
+    </a>
+    <a href="mailto:piyushsingh5457@gmail.com" class="btn-secondary">Contact Me</a>
+</div>
+    </div>
+</section>	
+
+
+<!-- DYNAMIC PROFILE HUB SECTION -->
+<section id="profile-hub" class="hub-section">
+    <div class="hub-wrapper">
+        
+        <!-- GLOWING CONTROLLER TAB NAVIGATION -->
+        <div class="tab-container">
+            <button class="tab-btn active" data-target="about-tab">
+                <i class="fa-solid fa-user-astronaut"></i> About Me
+            </button>
+            <button class="tab-btn" data-target="skills-tab">
+                <i class="fa-solid fa-layer-group"></i> Technical Skills
+            </button>
+            <button class="tab-btn" data-target="cert-tab">
+                <i class="fa-solid fa-award"></i> Certifications
+            </button>
+        </div>
+
+        <!-- TRANSITION CONTROLLER PANELS ACCELERATOR -->
+        <div class="panels-display-viewport">
+
+            <!-- TAB PANEL: ABOUT ME -->
+            <div id="about-tab" class="tab-panel active">
+                <div class="panel-card main-about-card" data-tilt>
+                    <div class="card-glow-overlay"></div>
+                    <h3>Computer Science Undergraduate</h3>
+                    <p>I am a highly motivated developer focused on full-stack engineering and machine learning integrations. Currently completing my B.Tech in Computer Science and Engineering at Sri Sri University (2023-2027) with a current CGPA of 7.55/10.0. I enjoy bridging powerful backend models with clean, highly accessible UI layouts.</p>
+                </div>
+            </div>
+
+            <!-- TAB PANEL: TECHNICAL SKILLS (MODERN STACK PILLS) -->
+            <div id="skills-tab" class="tab-panel">
+                <div class="skills-matrix">
+                    
+                    <div class="stack-box" data-tilt>
+                        <div class="stack-header">
+                            <i class="fa-solid fa-code text-emerald"></i>
+                            <h4>Frontend</h4>
+                        </div>
+                        <div class="pill-cloud">
+                            <span>React.js</span>
+                            <span>Tailwind CSS</span>
+                            <span>JavaScript (ES6+)</span>
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-box" data-tilt>
+                        <div class="stack-header">
+                            <i class="fa-solid fa-server text-emerald"></i>
+                            <h4>Backend & DB</h4>
+                        </div>
+                        <div class="pill-cloud">
+                            <span>Node.js</span>
+                            <span>Express</span>
+                            <span>FastAPI</span>
+                            <span>Python</span>
+                            <span>MongoDB</span>
+                            <span>SQL</span>
+                            <span>Firebase</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-box" data-tilt>
+                        <div class="stack-header">
+                            <i class="fa-solid fa-brain text-emerald"></i>
+                            <h4>AI & Tools</h4>
+                        </div>
+                        <div class="pill-cloud">
+                            <span>LangChain</span>
+                            <span>OpenAI API</span>
+                            <span>Gemini API</span>
+                            <span>Docker</span>
+                            <span>Git</span>
+                            <span>Postman</span>
+                            <span>VS Code</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB PANEL: CERTIFICATIONS -->
+            <div id="cert-tab" class="tab-panel">
+                <div class="cert-grid-layout">
+                    
+                    <div class="modern-cert-card" data-tilt>
+                        <div class="cert-icon-wrapper">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        <div class="cert-details">
+                            <h5>Python Essentials</h5>
+                            <span class="issuer">Cisco Networking Academy</span>
+                        </div>
+                    </div>
+
+                    <div class="modern-cert-card" data-tilt>
+                        <div class="cert-icon-wrapper">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="cert-details">
+                            <h5>HTML Essentials</h5>
+                            <span class="issuer">Cisco Networking Academy</span>
+                        </div>
+                    </div>
+
+                    <div class="modern-cert-card" data-tilt>
+                        <div class="cert-icon-wrapper">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <div class="cert-details">
+                            <h5>Introduction to C</h5>
+                            <span class="issuer">Cisco Networking Academy</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div> <!-- END OF VIEWPORT -->
+    </div>
+</section>
+
+<!-- FEATURED PROJECTS showcase SECTION -->
+<section id="projects" class="projects-section">
+    <div class="projects-container">
+        <div class="section-title">
+            <span class="badge">SHOWCASE</span>
+            <h2>Featured Projects</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card" data-tilt>
+                <div class="project-icon">
+                    <i class="fa-solid fa-route"></i>
+                </div>
+                <h3>AI Travel Planner</h3>
+                <p>
+                    A smart, full-stack web application powered by the Gemini AI API. It intelligently parses user location variables, 
+                    budget limits, and schedule lengths to generate comprehensive, highly optimized day-by-day vacation itineraries.
+                </p>
+                <div class="tech-tags">
+                    <span>React.js</span>
+                    <span>Node.js</span>
+                    <span>Gemini API</span>
+                    <span>Tailwind CSS</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/kritika52-52/VoyageAI-Workspace.git" target="_blank" rel="noopener noreferrer" class="link-btn">
+                        <i class="fa-brands fa-github"></i> Source Code
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-tilt>
+                <div class="project-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>Deepfake Detection</h3>
+                <p>
+                    A secure digital analytical model built to process and flag sophisticated artificial media manipulations. 
+                    Combines localized neural architecture feeds with real-time risk indicators on an interactive supervisor control board.
+                </p>
+                <div class="tech-tags">
+                    <span>Python</span>
+                    <span>FastAPI</span>
+                    <span>Machine Learning</span>
+                    <span>React.js</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Piyush-52" target="_blank" rel="noopener noreferrer" class="link-btn">
+                        <i class="fa-brands fa-github"></i> Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DYNAMIC CONTACT & NETWORKING HUB -->
+<!-- DYNAMIC CONTACT & NETWORKING HUB -->
+<section id="contact" class="contact-section">
+    <div class="contact-container" data-tilt>
+        
+        <!-- HEADER BLOCK -->
+        <div class="contact-header">
+            <span class="badge">GET IN TOUCH</span>
+            <h2>Let's Build Something Special</h2>
+            <p>Whether you have an open full-stack role, an AI project idea, or just want to connect—my inbox is always open.</p>
+        </div>
+
+        <!-- HIGH-TECH INPUT FORM FIELDS -->
+        <!-- Updated: Points directly to the Web3Forms submission engine API -->
+        <form action="https://api.web3forms.com/submit" method="POST" id="portfolio-contact-form" class="contact-form">
+            
+            <!-- Paste your real access key token string right here -->
+            <input type="hidden" name="access_key" value="d5923e51-da08-4099-9c71-6cc8f430c962">
+            
+            <!-- Anti-spam honeypot field (hidden from users) -->
+            <input type="checkbox" name="botcheck" class="hidden-bot-trap" style="display: none;">
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Your Name</label>
+                    <!-- Critical: 'name' attribute added so emails know who sent it -->
+                    <input type="text" name="visitor_name" placeholder="John Doe" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" name="visitor_email" placeholder="john@example.com" required>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Message</label>
+                <textarea name="visitor_message" rows="5" placeholder="Tell me about your project or opportunity..." required></textarea>
+            </div>
+            
+            <!-- Custom landing redirect link (Optional: sets up where the page redirects after sending) -->
+            <input type="hidden" name="from_name" value="Piyush Kumar Portfolio Alert">
+
+            <button type="submit" class="btn-primary form-submit-btn">
+                <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+        </form>
+
+    </div>
+</section>
+
+<!-- PROFESSIONAL BASELINE FOOTER -->
+<footer class="main-footer">
+    <div class="footer-wrapper">
+        <p>&copy; 2026 Piyush Kumar. All rights reserved.</p>
+        <div class="footer-socials">
+            <a href="https://linkedin.com/in/piyush-kumar-6469902b7" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/Piyush-52" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+</footer>
+
+<!-- INITIALIZATION ENGINE INJECTIONS -->
+<script src="js/script.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script>
+    var wow = new WOW({
+        boxClass:     'wow',
+        animateClass: 'animated',
+        offset:       100
+    });
+    wow.init();
+</script> 
+</body>
+</html>

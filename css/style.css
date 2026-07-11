@@ -1,0 +1,1178 @@
+/* ==========================================================================
+   GLOBAL CONFIGURATION & CORE RESETS
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ==========================================================================
+   1. PERFORMANCE & SMOOTH SCROLL ACCELERATION
+   ========================================================================== */
+html {
+    scroll-behavior: auto !important; 
+}
+
+/* Force Graphics Card (GPU) acceleration on your main content layers */
+.hero-section, 
+.hub-section, 
+.projects-section {
+    position: relative;
+    z-index: 5;
+    will-change: transform;
+    transform: translateZ(0); 
+    backface-visibility: hidden;
+}
+
+/* Optimize WebGL frame processing space */
+.lightfall-bg-container {
+    will-change: auto !important;
+}
+
+/* ==========================================================================
+   2. LIGHTFALL WEBGL CANVAS LAYER CONFIGURATION
+   ========================================================================== */
+.lightfall-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1; /* Keeps the animated shader behind all your cards */
+    background-color: #050b14; 
+}
+
+#lightfall-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+}
+
+
+
+
+*{
+    font-family: "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding-top:84px;
+ /* background: url("../images/bg1.jpg") no-repeat center center #1c1d1f;
+  background-size: cover;
+  background-attachment: fixed; */
+}
+
+
+/* ==========================================================================
+    TopBar SECTION
+   ========================================================================== */
+   
+   
+.topbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 1320px;
+    max-width: 95%;
+    height: 60px;
+    background: rgba(20, 25, 35, 0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 100; 
+    
+    /* Preps hardware hooks for 3D cursor tilting layers */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.topbar:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 35px rgba(16, 185, 129, 0.15);
+}
+
+
+.topbar .wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.tl, .tr {
+    display: flex;
+    align-items: center;
+}
+
+.tl ul, .tr ul {
+    list-style: none;
+    display: flex;
+    gap: 24px; 
+    margin: 0;
+    padding: 0;
+}
+
+
+.tl ul li a, 
+.tr ul li a.nav-link {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.3s ease;
+}
+
+
+.tl ul li a i, 
+.tr ul li a.nav-link i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+/* Hover State Colors */
+.tl ul li a:hover, 
+.tr ul li a.nav-link:hover {
+    color: #10B981; /* Premium Emerald Shift */
+}
+
+.tl ul li a:hover i, 
+.tr ul li a.nav-link:hover i {
+    transform: translateY(-1px) scale(1.05); /* Slight interactive nudge */
+}
+
+
+.tr ul li a.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #10B981;
+    transition: width 0.3s ease;
+}
+
+.tr ul li a.nav-link:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN ADAPTATIONS (MOBILE BREAK POINTS)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .topbar {
+        top: 10px;
+        height: auto;
+        padding: 12px 0;
+        border-radius: 20px;
+        transform: translateX(-50%) !important; /* Locks centering grid override */
+    }
+    
+    .topbar .wrapper {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 15px;
+    }
+    
+    /* Safely hide the email address block to save mobile viewport display space */
+    .tl {
+        display: none; 
+    }
+    
+    .tr ul {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .tr ul li a.nav-link {
+        font-size: 13px;
+    }
+}
+
+/* ==========================================================================
+   HERO CONTAINER LAYOUT
+   ========================================================================== */
+   
+   
+.hero-section {
+    min-height: calc(100vh - 84px); /* Fills the viewport perfectly below the topbar */
+    display: flex;
+    align-items: center;
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.hero-wrapper {
+    width: 1320px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+/* ==========================================================================
+   LEFT SIDE: DYNAMIC ORGANIC OVAL PHOTO
+   ========================================================================== */
+
+.hero-image-container {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* NEW: The 3D Perspective Canvas */
+.tilt-wrapper {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    /* JS controls the rotation transition here */
+    transition: transform 0.1s ease-out; 
+}
+
+/* The interactive, fluid organic oval frame (Base Layer) */
+.image-border-glow {
+    position: relative;
+    width: 380px; 
+    height: 460px;
+    padding: 4px;
+    
+    border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%;
+    background: linear-gradient(135deg, #10B981, rgba(16, 185, 129, 0.2));
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    
+    /* Crucial: Tells the glow border to allow elements inside to pop out */
+    transform-style: preserve-3d; 
+    
+    animation: dynamicPillFloat 6s ease-in-out infinite alternate;
+    transition: all 0.4s ease;
+}
+
+.image-border-glow:hover {
+    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+    box-shadow: 0 30px 60px -10px rgba(16, 185, 129, 0.4);
+}
+
+/* The profile photo (Extruded Layer) */
+.hero-profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 60% 40% 60% 40% / 50% 60% 40% 50%;
+    display: block;
+    
+    /* NEW: Extrudes your face 40 pixels out of the screen! */
+    transform: translateZ(40px);
+    /* Adds a drop shadow behind your floating photo onto the glowing backplate */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); 
+    
+    transition: all 0.4s ease;
+}
+
+.image-border-glow:hover .hero-profile-pic {
+    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+    transform: translateZ(60px); /* Pops out even further on hover */
+}
+
+/* Levitating keyframes animation engine */
+@keyframes dynamicPillFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-15px); }
+}
+
+/* Mobile check */
+@media (max-width: 992px) {
+    .image-border-glow {
+        width: 280px;
+        height: 340px;
+        animation: none;
+    }
+    .tilt-wrapper {
+        transform: none !important; /* Disables JS tilt on mobile to save battery */
+    }
+    .hero-profile-pic {
+        transform: translateZ(0); /* Flattens back to 2D on phones */
+    }
+}
+
+/* ==========================================================================
+   RIGHT SIDE: TEXT CONTENT & TYPOGRAPHY
+   ========================================================================== */
+   
+.hero-content {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.badge {
+    background: rgba(16, 185, 129, 0.08);
+    color: #10B981;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    border-radius: 20px;
+    border: 1px solid rgba(16, 185, 129, 0.18);
+    margin-bottom: 24px;
+}
+
+.hero-content h1 {
+    font-size: 56px;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.hero-content h1 .highlight {
+    color: #10B981; /* Emerald pop accent */
+}
+
+.hero-content h2 {
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 24px 0;
+    font-weight: 500;
+}
+
+.hero-content p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.7;
+    margin: 0 0 36px 0;
+    max-width: 560px;
+}
+
+
+/* ==========================================================================
+   INTERACTIVE BUTTON ACTIONS
+   ========================================================================== */
+   
+   
+.hero-actions {
+    display: flex;
+    gap: 16px;
+}
+
+/* ==========================================================================
+   HERO ACTIONS: DYNAMIC DOWNLOAD BUTTON STYLE
+   ========================================================================== */
+.btn-cv-download {
+    background: #10B981; /* Emerald theme background */
+    color: #050b14;      /* Deep primary space dark color text */
+    text-decoration: none;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-cv-download:hover {
+    background: #0d9668;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.45);
+}
+
+.btn-cv-download i {
+    font-size: 15px;
+    transition: transform 0.3s ease;
+}
+
+.btn-cv-download:hover i {
+    transform: translateY(2px); /* Makes the arrow bounce downwards on hover */
+}
+.btn-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    padding: 14px 32px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s ease;
+	text-decoration:none;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   FLUID RESPONSIVE DESIGN (TABLETS & PHONES)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero-wrapper {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+        padding: 40px 0;
+    }
+
+    .hero-image-container, 
+    .hero-content {
+        width: 100%;
+        align-items: center;
+    }
+
+    /* Shrinks shapes cleanly on mobile devices */
+    .image-border-glow {
+        width: 280px;
+        height: 340px;
+        animation: none; /* Stops float processing loops on mobile chips to save battery */
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .hero-content h2 {
+        font-size: 24px;
+    }
+    
+    .hero-content p {
+        margin: 0 0 28px 0;
+    }
+    
+    .hero-actions {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+      
+/* ==========================================================================
+    PROFILE HUB STYLING
+   ========================================================================== */
+   
+   
+.hub-section {
+    padding: 80px 0;
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.hub-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+.tab-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 40px;
+}
+
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 28px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover { 
+    color: rgba(255, 255, 255, 0.9); 
+}
+
+.tab-btn.active { 
+    color: #10B981; 
+}
+
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #10B981;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+
+.tab-panel {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.tab-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.panel-card {
+    background: rgba(20, 25, 35, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    
+    /* Activates 3D spatial coordinate tracking for your vanilla tilt engine */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.1s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel-card:hover {
+    border-color: rgba(16, 185, 129, 0.25);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
+}
+
+
+.panel-card h3 { 
+    font-size: 22px; 
+    margin-bottom: 15px; 
+    color: #ffffff;
+    transform: translateZ(40px);
+}
+
+.panel-card p { 
+    color: rgba(255, 255, 255, 0.6); 
+    line-height: 1.7; 
+    font-size: 15px; 
+    transform: translateZ(20px);
+}
+
+
+.skills-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+.stack-box {
+    background: rgba(20, 25, 35, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stack-box:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
+}
+
+
+.stack-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 14px;
+    transform: translateZ(25px);
+}
+
+.stack-header i.text-emerald {
+    font-size: 20px;
+    color: #10B981;
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
+}
+
+.stack-header h4 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+
+.pill-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    transform: translateZ(15px);
+}
+
+.pill-cloud span {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: default;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pill-cloud span:hover {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: #10B981;
+    color: #10B981;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 5px 12px rgba(16, 185, 129, 0.25);
+}
+
+
+.cert-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.modern-cert-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: rgba(20, 25, 35, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.modern-cert-card:hover {
+    border-color: rgba(6, 182, 212, 0.3);
+    box-shadow: 0 15px 30px rgba(6, 182, 212, 0.1);
+}
+
+
+.cert-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateZ(25px);
+    transition: all 0.3s ease;
+}
+
+.cert-icon-wrapper i {
+    color: #06B6D4;
+    font-size: 22px;
+    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.4));
+}
+
+
+.modern-cert-card:hover .cert-icon-wrapper {
+    background: #06B6D4;
+    border-color: #06B6D4;
+    transform: translateZ(35px) rotate(10deg);
+}
+
+.modern-cert-card:hover .cert-icon-wrapper i {
+    color: #050b14;
+    filter: none;
+}
+
+
+.cert-details {
+    transform: translateZ(15px);
+}
+
+.cert-details h5 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    letter-spacing: 0.3px;
+}
+
+.cert-details .issuer {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 13px;
+    font-weight: 500;
+    display: block;
+}
+
+/* ==========================================================================
+   SECTION 6: RESPONSIVE MEDIA VIEWPORT BREAKS
+   ========================================================================== */
+@media (max-width: 992px) {
+    .skills-matrix, 
+    .cert-grid-layout {
+        grid-template-columns: 1fr; /* Drop grids into a single unified column row on mobile devices */
+        gap: 20px;
+    }
+    
+    .stack-box, 
+    .modern-cert-card {
+        padding: 25px;
+        transform: none !important; /* Disables 3D strain on basic viewport engines */
+    }
+}
+
+
+
+
+/* ==========================================================================
+   Project SECTION
+   ========================================================================== */
+
+.projects-section {
+    padding: 100px 0;
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.projects-container {
+    width: 1320px;
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+
+.section-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 42px;
+    color: #ffffff;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+
+.title-underline {
+    width: 60px;
+    height: 4px;
+    background: #10B981;
+    border-radius: 2px;
+    margin-top: 15px;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
+
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+}
+
+.project-card {
+    background: rgba(20, 25, 35, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 45px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    
+    /* Connects this card directly to your existing JavaScript 3D tilt engine */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+
+.project-card:hover {
+    border-color: rgba(16, 185, 129, 0.25);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
+}
+
+
+.project-icon {
+    width: 54px;
+    height: 54px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.project-icon i {
+    color: #10B981;
+    font-size: 22px;
+}
+
+.project-card h3 {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.project-card p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.tech-tags span {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+
+/* ==========================================================================
+   PROJECT CARDS: SOURCE CODE INTERACTION BUTTONS
+   ========================================================================== */
+.project-links {
+    margin-top: 25px;
+    transform: translateZ(20px); /* Extrudes the button in 3D space for the tilt engine */
+}
+
+.link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.08); /* Transparent emerald tint */
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #10B981;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button lights up and shifts up slightly on cursor hover */
+.link-btn:hover {
+    background: #10B981;
+    color: #050b14; /* Inverts text color over solid emerald background */
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+}
+
+.link-btn i {
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   MOBILE VIEWPORT MEDIA QUERY RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 992px) {
+    .projects-grid {
+        grid-template-columns: 1fr; /* Stacks layout columns into a 1-column layout on mobile */
+        gap: 25px;
+    }
+
+    .project-card {
+        padding: 30px;
+        transform: none !important; /* Safely shuts down 3D processing angles on touch screens */
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+}
+
+
+/* ==========================================================================
+   CONTACT SECTION STYLING
+   ========================================================================== */
+.contact-section {
+    padding: 80px 0 100px 0;
+    position: relative;
+    z-index: 5;
+}
+
+.contact-container {
+    width: 95%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px;
+    background: rgba(20, 25, 35, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+}
+
+.contact-container:hover {
+    border-color: rgba(16, 185, 129, 0.25);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 40px;
+    transform: translateZ(30px); /* Extrudes header outward in 3D */
+}
+
+.contact-header h2 {
+    font-size: 36px;
+    color: #ffffff;
+    font-weight: 800;
+    margin: 10px 0 14px 0;
+}
+
+.contact-header p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+/* Form Structural Core Systems */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    transform: translateZ(20px); /* Extrudes form fields slightly under the header */
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group input,
+.input-group textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    background: rgba(16, 185, 129, 0.03);
+    border-color: #10B981;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+
+
+.form-submit-btn {
+    background: #10B981; /* Premium Emerald Accent color */
+    color: #050b14;      /* Deep space dark base text color */
+    border: none;
+    padding: 16px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 24px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: auto;
+    min-width: 120px;
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.25);
+    
+    /* Hardware acceleration for smooth dynamic movement layers */
+    transform: translateZ(20px); 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.form-submit-btn:hover {
+    background: #0d9668;
+    transform: translateZ(25px) translateY(-2px);
+    box-shadow: 0 8px 22px rgba(16, 185, 129, 0.45);
+}
+
+
+.form-submit-btn:active {
+    transform: translateZ(15px) translateY(0);
+}
+
+
+.form-submit-btn i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.form-submit-btn:hover i {
+    transform: translateX(3px) translateY(-2px); 
+}
+
+
+.form-submit-btn:disabled {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+
+@keyframes button-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.form-submit-btn i.fa-spin {
+    animation: button-spin 1s linear infinite;
+}
+
+/* ==========================================================================
+   BASELINE FOOTER STYLING
+   ========================================================================== */
+.main-footer {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(5, 11, 20, 0.95); 
+    padding: 30px 0;
+    margin-top: auto; 
+    position: relative !important;
+    z-index: 10 !important; 
+    clear: both;
+}
+
+.footer-wrapper {
+    width: 1320px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-wrapper p {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 16px;
+}
+
+.footer-socials a {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.footer-socials a:hover {
+    background: #10B981;
+    color: #050b14;
+    border-color: #10B981;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT CONSTRAINTS
+   ========================================================================== */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 24px;
+    }
+    .contact-container {
+        padding: 30px 20px;
+        transform: none !important;
+    }
+    .footer-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
